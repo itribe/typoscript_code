@@ -4,7 +4,7 @@ namespace Itribe\TyposcriptCode\Controller;
 /***************************************************************
  *  Copyright notice
  *
- *  2014 Anton Danilov <anton.danilov@i-tribe.de>, interactive tribe GmbH
+ *  2014-2016 Anton Danilov <anton.danilov@i-tribe.de>, interactive tribe GmbH
  *
  *  All rights reserved
  *
