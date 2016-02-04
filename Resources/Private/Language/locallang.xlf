@@ -9,6 +9,9 @@
 			<trans-unit id="plugins.description">
 				<source>Insert TypoScript code definition directly to a page.</source>
 			</trans-unit>
+			<trans-unit id="bodytext">
+				<source>TypoScript setup</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

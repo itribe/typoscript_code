@@ -19,8 +19,8 @@
     "typo3/cms-core": ">=6.2.0,<8.0"
   },
   "replace": {
-    "metaseo": "self.version",
-    "typo3-ter/metaseo": "self.version"
+    "typoscript_code": "self.version",
+    "typo3-ter/typoscript_code": "self.version"
   }
 }
 
