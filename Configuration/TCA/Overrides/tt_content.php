@@ -18,7 +18,7 @@ $GLOBALS['TCA']['tt_content']['ctrl']['typeicon_classes']['typoscriptcode_conten
 
 if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('t3editor')) {
     // @see Breaking: #67229 - FormEngine related classes
-    if(version_compare(TYPO3_branch, '7.3', '<')) {
+    if (version_compare(TYPO3_branch, '7.3', '<')) {
         // Add the t3editor wizard on the bodytext field of tt_content
         $GLOBALS['TCA']['tt_content']['columns']['bodytext']['config']['wizards']['typoscript_t3editor'] = array(
             'enableByTypeConfig' => 1,

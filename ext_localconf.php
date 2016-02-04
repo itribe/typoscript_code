@@ -19,7 +19,7 @@ if (TYPO3_MODE === 'BE') {
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
         '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:typoscript_code/Configuration/PageTS/modWizards.ts">'
     );
-    if(version_compare(TYPO3_branch, '7.0', '<')) {
+    if (version_compare(TYPO3_branch, '7.6', '<')) {
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
             'mod.wizards.newContentElement.wizardItems.plugins.elements {
                 typoscriptcode_content {
