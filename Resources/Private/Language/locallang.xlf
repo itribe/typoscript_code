@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" product-name="typoscript_code">
+		<header/>
+		<body>
+			<trans-unit id="plugins.title">
+				<source>TypoScript code</source>
+			</trans-unit>
+			<trans-unit id="plugins.description">
+				<source>Insert TypoScript code definition directly to a page.</source>
+			</trans-unit>
+			<trans-unit id="bodytext">
+				<source>TypoScript setup</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

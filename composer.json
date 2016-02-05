@@ -1,0 +1,26 @@
+{
+  "name": "itribe/typoscript_code",
+  "description": "TypoScript code extension",
+  "type": "typo3-cms-extension",
+  "homepage": "https://github.com/itribe/typoscript_code",
+  "support": {
+    "issues": "https://github.com/itribe/typoscript_code/issues"
+  },
+  "license": ["GPL-2.0+"],
+  "keywords": ["TYPO3 CMS", "TypoScript"],
+  "version": "5.0.0",
+  "autoload": {
+    "psr-4": {
+      "Itribe\\TyposcriptCode\\": "Classes/"
+    }
+  },
+  "require": {
+    "php": ">=5.3.7",
+    "typo3/cms-core": ">=6.2.0,<8.0"
+  },
+  "replace": {
+    "typoscript_code": "self.version",
+    "typo3-ter/typoscript_code": "self.version"
+  }
+}
+
