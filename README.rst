@@ -32,3 +32,7 @@ Users manual
 Just add this plugin to a page at a place you like and enter some TypoScript code to a text field. Code is considering to be a COA definition, it will be rendered by TYPO3 and inserted to a page.
 
 Code could access definitions from website TypoScript templates, as well as constants.
+
+.. image:: /Resources/Public/example.png
+.. :border: 0
+.. :align: left
