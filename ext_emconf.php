@@ -10,7 +10,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'title' => 'TypoScript code',
 	'description' => 'This extension allows you to insert any TypoScript code to a page as a normal content element.',
 	'category' => 'plugin',
-	'version' => '5.0.0',
+	'version' => '5.0.1',
 	'state' => 'stable',
 	'author' => 'Alexey Gafiulov, Anton Danilov',
 	'author_email' => 'alexey.gafiulov@i-tribe.de, anton.danilov@i-tribe.de',
@@ -20,6 +20,6 @@ $EM_CONF[$_EXTKEY] = array(
 			'typo3' => '6.2.0-7.6.99',
 		),
 		'conflicts' => array(),
-		'suggests' => array('t3editor')
+		'suggests' => array('t3editor' => '')
 	),
 );
