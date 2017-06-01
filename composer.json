@@ -1,5 +1,5 @@
 {
-  "name": "itribe/typoscript_code",
+  "name": "itribe/typoscript-code",
   "description": "TypoScript code extension",
   "type": "typo3-cms-extension",
   "homepage": "https://github.com/itribe/typoscript_code",
@@ -15,8 +15,7 @@
     }
   },
   "require": {
-    "php": ">=5.3.7",
-    "typo3/cms-core": ">=6.2.0,<8.0"
+    "typo3/cms-core": ">=8.7.0,<8.7.99"
   },
   "replace": {
     "typoscript_code": "self.version",

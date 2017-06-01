@@ -17,26 +17,7 @@ $GLOBALS['TCA']['tt_content']['types']['typoscriptcode_content']['showitem'] = '
 $GLOBALS['TCA']['tt_content']['ctrl']['typeicon_classes']['typoscriptcode_content'] = 'extensions-typoscript_code-content';
 
 if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('t3editor')) {
-    // @see Breaking: #67229 - FormEngine related classes
-    if (version_compare(TYPO3_branch, '7.3', '<')) {
-        // Add the t3editor wizard on the bodytext field of tt_content
-        $GLOBALS['TCA']['tt_content']['columns']['bodytext']['config']['wizards']['typoscript_t3editor'] = array(
-            'enableByTypeConfig' => 1,
-            'type' => 'userFunc',
-            'userFunc' => 'TYPO3\\CMS\\T3editor\\FormWizard->main',
-            'params' => array(
-                'format' => 'ts',
-                'style' => 'width:98%;'
-            )
-        );
-        // Activate the t3editor wizard
-        $GLOBALS['TCA']['tt_content']['types']['typoscriptcode_content']['showitem'] =
-            str_replace(
-                'bodytext,',
-                'bodytext;LLL:EXT:typoscript_code/Resources/Private/Language/locallang.xlf:bodytext;;nowrap:wizards[typoscript_t3editor],',
-                $GLOBALS['TCA']['tt_content']['types']['typoscriptcode_content']['showitem']
-            );
-    } else if (is_array($GLOBALS['TCA']['tt_content']['types']['typoscriptcode_content'])) {
+    if (is_array($GLOBALS['TCA']['tt_content']['types']['typoscriptcode_content'])) {
         // Activate t3editor for tt_content type typoscriptcode_content if this type exists
         if (!is_array($GLOBALS['TCA']['tt_content']['types']['typoscriptcode_content']['columnsOverrides'])) {
             $GLOBALS['TCA']['tt_content']['types']['typoscriptcode_content']['columnsOverrides'] = array();

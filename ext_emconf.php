@@ -17,7 +17,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'author_company' => 'interactive tribe GmbH',
 	'constraints' => array(
 		'depends' => array(
-			'typo3' => '6.2.0-7.6.99',
+			'typo3' => '8.7.0-8.7.99',
 		),
 		'conflicts' => array(),
 		'suggests' => array('t3editor' => '')
