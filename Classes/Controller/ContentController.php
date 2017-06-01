@@ -1,10 +1,11 @@
 <?php
+
 namespace Itribe\TyposcriptCode\Controller;
 
 /***************************************************************
  *  Copyright notice
  *
- *  2014-2016 Anton Danilov <anton.danilov@i-tribe.de>, interactive tribe GmbH
+ *  2014-2017 Anton Danilov <anton.danilov@i-tribe.de>, interactive tribe GmbH
  *
  *  All rights reserved
  *
@@ -25,8 +26,8 @@ namespace Itribe\TyposcriptCode\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser;
-use \TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Frontend\Configuration\TypoScript\ConditionMatching\ConditionMatcher;
 
 /**
@@ -36,95 +37,109 @@ use TYPO3\CMS\Frontend\Configuration\TypoScript\ConditionMatching\ConditionMatch
  * @package    TyposcriptCode
  * @subpackage Controller
  */
-class ContentController extends ActionController {
+class ContentController extends ActionController
+{
 
-	const RECURSIVE_LEVEL = 10;
+    const RECURSIVE_LEVEL = 10;
 
-	/**
-	 * main parse class
-	 *
-	 * @var TypoScriptParser
-	 */
-	protected $parser;
+    /**
+     * main parse class
+     *
+     * @var TypoScriptParser
+     */
+    protected $parser;
 
-	/**
-	 * Matching TypoScript conditions
-	 *
-	 * @var ConditionMatcher
-	 */
-	protected $matchCondition;
+    /**
+     * Matching TypoScript conditions
+     *
+     * @var ConditionMatcher
+     */
+    protected $matchCondition;
 
-	/**
-	 * Render content
-	 *
-	 * @return string
-	 */
-	public function indexAction() {
-		$contentObject = $this->configurationManager->getContentObject();
-		//TypoScript configuration given from tt_content record
-		$configuration = $contentObject->data['bodytext'];
+    /**
+     * Render content
+     *
+     * @return string
+     */
+    public function indexAction()
+    {
+        $contentObject = $this->configurationManager->getContentObject();
+        //TypoScript configuration given from tt_content record
+        $configuration = $contentObject->data['bodytext'];
 
-		$this->parser = $this->objectManager->get('TYPO3\\CMS\\Core\\TypoScript\\Parser\\TypoScriptParser');
-		$this->matchCondition = $this->objectManager->get('TYPO3\\CMS\\Frontend\\Configuration\\TypoScript\\ConditionMatching\\ConditionMatcher');
+        $this->parser = $this->objectManager->get(TypoScriptParser::class);
+        $this->matchCondition = $this->objectManager->get(ConditionMatcher::class);
 
-		$setup = $this->scriptParser($configuration, self::RECURSIVE_LEVEL);
-		$this->tryChangeExtType();
+        $setup = $this->scriptParser($configuration, self::RECURSIVE_LEVEL);
+        $this->tryChangeExtType();
 
-		return $this->configurationManager->getContentObject()->cObjGet($setup, 'typoscript_code_proc.');
-	}
+        return $this->configurationManager->getContentObject()->cObjGet($setup, 'typoscript_code_proc.');
+    }
 
-	/**
-	 * Call back method for preg_replace_callback in substituteConstants
-	 *
-	 * @param $matches
-	 * @return string Replacement
-	 * @see substituteConstants()
-	 */
-	public function substituteConstantsCallBack($matches) {
-		$s = $this->parser->getVal($matches[1], $this->parser->setup);
-		return isset($s[0]) ? $s[0] : $matches[0];
-	}
+    /**
+     * Call back method for preg_replace_callback in substituteConstants
+     *
+     * @param $matches
+     * @return string Replacement
+     * @see \TYPO3\CMS\Core\TypoScript\ExtendedTemplateService::substituteConstants()
+     */
+    protected function substituteConstantsCallBack($matches)
+    {
+        $s = $this->parser->getVal($matches[1], $this->parser->setup);
+        return isset($s[0]) ? $s[0] : $matches[0];
+    }
 
-	/**
-	 * Change ext type to USER_INT if necessary
-	 * @return void
-	 */
-	protected function tryChangeExtType() {
-		if (isset($this->parser->sections) && is_array($this->parser->sections) && count($this->parser->sections)) {
-			$this->configurationManager->getContentObject()->convertToUserIntObject();
-		}
-	}
+    /**
+     * Change ext type to USER_INT if necessary
+     * @return void
+     */
+    protected function tryChangeExtType()
+    {
+        if (isset($this->parser->sections) && is_array($this->parser->sections) && count($this->parser->sections)) {
+            $this->configurationManager->getContentObject()->convertToUserIntObject();
+        }
+    }
 
-	/**
-	 * Parse, and return conf - array
-	 *
-	 * @param string $script
-	 * @param int    $recursiveLevel
-	 * @return array TypoScript configuration array
-	 */
-	protected function scriptParser($script = '', $recursiveLevel) {
-		$script = $this->parser->checkIncludeLines($script);
+    /**
+     * Parse, and return conf - array
+     *
+     * @param string $script
+     * @param int $recursiveLevel
+     * @return array TypoScript configuration array
+     */
+    protected function scriptParser($script = '', $recursiveLevel)
+    {
+        $script = $this->parser->checkIncludeLines($script);
 
-		// get constants
-		$this->parser->parse(implode(PHP_EOL, $GLOBALS['TSFE']->tmpl->constants), $this->matchCondition);
+        // get constants
+        $this->parser->parse(
+            implode(PHP_EOL, $this->getTypoScriptFrontendController()->tmpl->constants), $this->matchCondition
+        );
 
-		// recursive substitution of constants
-		for ($i = 0; $i < $recursiveLevel; $i++) {
-			$oldScript = $script;
-			$script = preg_replace_callback('/\{\$(.[^}]*)\}/', array($this, 'substituteConstantsCallBack'), $script);
-			if ($oldScript == $script) {
-				break;
-			}
-		}
+        // recursive substitution of constants
+        for ($i = 0; $i < $recursiveLevel; $i++) {
+            $oldScript = $script;
+            $script = preg_replace_callback('/\{\$(.[^}]*)\}/', [$this, 'substituteConstantsCallBack'], $script);
+            if ($oldScript == $script) {
+                break;
+            }
+        }
 
-		foreach ($GLOBALS['TSFE']->tmpl->setup as $tsObjectKey => $tsObjectValue) {
-			if ($tsObjectKey !== intval($tsObjectKey, 10)) {
-				$this->parser->setup[$tsObjectKey] = $tsObjectValue;
-			}
-		}
+        foreach ($this->getTypoScriptFrontendController()->tmpl->setup as $tsObjectKey => $tsObjectValue) {
+            if ($tsObjectKey !== intval($tsObjectKey, 10)) {
+                $this->parser->setup[$tsObjectKey] = $tsObjectValue;
+            }
+        }
 
-		$this->parser->parse($script, $this->matchCondition);
-		return $this->parser->setup;
-	}
+        $this->parser->parse($script, $this->matchCondition);
+        return $this->parser->setup;
+    }
 
+    /**
+     * @return \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
+     */
+    protected function getTypoScriptFrontendController()
+    {
+        return $GLOBALS['TSFE'];
+    }
 }
