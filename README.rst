@@ -43,6 +43,6 @@ Just add this plugin to a page at a place you like and enter some TypoScript cod
 
 Code could access definitions from website TypoScript templates, as well as constants.
 
-.. image:: /Resources/Public/example.png
+.. image:: /Resources/Public/example.jpg
 .. :border: 0
 .. :align: left
