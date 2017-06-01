@@ -22,10 +22,20 @@ Press the "Retrieve/Update" button and search for the extension key "typoscript_
         { "type": "composer", "url": "https://composer.typo3.org/" }
     ],
     "require": {
-        "typo3/cms": "6.2.*",
-        "typo3-ter/typoscript_code": "*"
+        "typo3-ter/typoscript-code": "*"
     }
   }
+**************
+Version status
+**************
+* Version **5.x**
+
+  + Compatible with TYPO3 6.2.x - 7.6.x
+
+* Version **6.x**
+
+  + Compatible with TYPO3 8.7.x
+
 ************
 Users manual
 ************
@@ -33,6 +43,6 @@ Just add this plugin to a page at a place you like and enter some TypoScript cod
 
 Code could access definitions from website TypoScript templates, as well as constants.
 
-.. image:: /Resources/Public/example.png
+.. image:: /Resources/Public/example.jpg
 .. :border: 0
 .. :align: left
