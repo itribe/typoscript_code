@@ -67,8 +67,8 @@ class ContentController extends ActionController
         //TypoScript configuration given from tt_content record
         $configuration = $contentObject->data['bodytext'];
 
-        $this->parser = $this->objectManager->get(TypoScriptParser::class);
-        $this->matchCondition = $this->objectManager->get(ConditionMatcher::class);
+        $this->parser = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(TypoScriptParser::class);
+        $this->matchCondition = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ConditionMatcher::class);
 
         $setup = $this->scriptParser($configuration, self::RECURSIVE_LEVEL);
         $this->tryChangeExtType();
