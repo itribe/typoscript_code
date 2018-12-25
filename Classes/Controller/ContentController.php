@@ -26,6 +26,7 @@ namespace Itribe\TyposcriptCode\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser;
 use TYPO3\CMS\Frontend\Configuration\TypoScript\ConditionMatching\ConditionMatcher;
@@ -67,8 +68,8 @@ class ContentController extends ActionController
         //TypoScript configuration given from tt_content record
         $configuration = $contentObject->data['bodytext'];
 
-        $this->parser = $this->objectManager->get(TypoScriptParser::class);
-        $this->matchCondition = $this->objectManager->get(ConditionMatcher::class);
+        $this->parser = GeneralUtility::makeInstance(TypoScriptParser::class);
+        $this->matchCondition = GeneralUtility::makeInstance(ConditionMatcher::class);
 
         $setup = $this->scriptParser($configuration, self::RECURSIVE_LEVEL);
         $this->tryChangeExtType();

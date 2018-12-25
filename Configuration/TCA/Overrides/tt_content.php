@@ -38,7 +38,7 @@ call_user_func(function () {
         }
         $GLOBALS['TCA']['tt_content']['types']['typoscriptcode_content']['columnsOverrides']['bodytext']['config']['renderType'] = 't3editor';
         $GLOBALS['TCA']['tt_content']['types']['typoscriptcode_content']['columnsOverrides']['bodytext']['config']['wrap'] = 'off';
-        $GLOBALS['TCA']['tt_content']['types']['typoscriptcode_content']['columnsOverrides']['bodytext']['config']['format'] = \TYPO3\CMS\T3editor\T3editor::MODE_TYPOSCRIPT;
+        $GLOBALS['TCA']['tt_content']['types']['typoscriptcode_content']['columnsOverrides']['bodytext']['config']['format'] = 'typoscript';
         $GLOBALS['TCA']['tt_content']['types']['typoscriptcode_content']['columnsOverrides']['bodytext']['label'] = 'LLL:EXT:typoscript_code/Resources/Private/Language/locallang.xlf:bodytext';
     }
     // Register the plugin
