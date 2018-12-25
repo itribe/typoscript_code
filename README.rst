@@ -32,9 +32,13 @@ Version status
 
   + Compatible with TYPO3 6.2.x - 7.6.x
 
-* Version **6.x**
+* Version **6.0.x**
 
   + Compatible with TYPO3 8.7.x
+
+* Version **6.1.x**
+
+  + Compatible with TYPO3 8.7.x - 9.5.x
 
 ************
 Users manual
