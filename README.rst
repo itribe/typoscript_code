@@ -9,22 +9,16 @@ Installation
 ************
 There are following ways for extension installation.
 
-1. Get extension from the Extension Manager
+1. Get extension using `PHP Composer <https://getcomposer.org/>`_
+*****************************************************************
+::
+
+        composer require itribe/typoscript-code
+
+2. Get extension from the Extension Manager
 *******************************************
 Press the "Retrieve/Update" button and search for the extension key "typoscript_code" and import the extension from the repository. Also you can get current version from `Extension Repository <https://typo3.org/extensions/repository/view/typoscript_code>`_ by downloading either the t3x or zip version. Upload the file afterwards in the Extension Manager.
 
-2. Get extension from `TYPO3 Composer Repository <https://composer.typo3.org/>`_
-********************************************************************************
-.. code-block:: http
-
-  {
-    "repositories": [
-        { "type": "composer", "url": "https://composer.typo3.org/" }
-    ],
-    "require": {
-        "typo3-ter/typoscript-code": "*"
-    }
-  }
 **************
 Version status
 **************
@@ -39,6 +33,10 @@ Version status
 * Version **6.1.x**
 
   + Compatible with TYPO3 8.7.x - 9.5.x
+
+* Version **6.2.x**
+
+  + Compatible with TYPO3 Version 10
 
 ************
 Users manual

@@ -42,10 +42,11 @@ call_user_func(function () {
         $GLOBALS['TCA']['tt_content']['types']['typoscriptcode_content']['columnsOverrides']['bodytext']['label'] = 'LLL:EXT:typoscript_code/Resources/Private/Language/locallang.xlf:bodytext';
     }
     // Register the plugin
+    // @extensionScannerIgnoreLine
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-        'typoscript_code',
+        'TyposcriptCode',
         'Content',
         'LLL:EXT:typoscript_code/Resources/Private/Language/locallang.xlf:plugins.title',
-        'EXT:typoscript_code/Resources/Public/Icons/tt_content_ts.png'
+        'extensions-typoscript_code-content'
     );
 });
