@@ -17,7 +17,7 @@ $EM_CONF[$_EXTKEY] = [
     'author_company' => 'interactive tribe GmbH',
     'constraints' => [
         'depends' => [
-            'typo3' => '10.3.0-',
+            'typo3' => '10.3.0-10.9.99',
         ],
         'conflicts' => [],
         'suggests' => ['t3editor' => '']
