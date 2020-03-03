@@ -14,5 +14,5 @@ defined('TYPO3_MODE') or die();
 
 // Apply PageTSconfig
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
-    '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:typoscript_code/Configuration/PageTS/modWizards.ts">'
+    '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:typoscript_code/Configuration/PageTS/modWizards.tsconfig">'
 );
