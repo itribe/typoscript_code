@@ -1,22 +1,18 @@
 <?php
-if (!defined('TYPO3_MODE')) {
-    die ('Access denied.');
-}
+defined('TYPO3_MODE') or die();
 
-/** @var string $_EXTKEY */
+// @extensionScannerIgnoreLine
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'Itribe.' . $_EXTKEY,
+    'TyposcriptCode',
     'Content',
     [
-        'Content' => 'index',
+        \Itribe\TyposcriptCode\Controller\ContentController::class => 'index',
     ],
     [],
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );
 
-if (TYPO3_MODE === 'BE') {
-    // Apply PageTSconfig
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
-        '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:typoscript_code/Configuration/PageTS/modWizards.ts">'
-    );
-}
+// Apply PageTSconfig
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
+    '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:typoscript_code/Configuration/PageTS/modWizards.ts">'
+);

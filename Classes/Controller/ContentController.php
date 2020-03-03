@@ -2,29 +2,18 @@
 
 namespace Itribe\TyposcriptCode\Controller;
 
-/***************************************************************
- *  Copyright notice
+/*
+ * This file is part of the TYPO3 CMS project.
  *
- *  2014-2017 Anton Danilov <anton.danilov@i-tribe.de>, interactive tribe GmbH
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
  *
- *  All rights reserved
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
  *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public $License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public $License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public $License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * The TYPO3 project - inspiring people to share!
+ */
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -64,6 +53,7 @@ class ContentController extends ActionController
      */
     public function indexAction()
     {
+        // @extensionScannerIgnoreLine
         $contentObject = $this->configurationManager->getContentObject();
         //TypoScript configuration given from tt_content record
         $configuration = $contentObject->data['bodytext'];
@@ -74,7 +64,7 @@ class ContentController extends ActionController
         $setup = $this->scriptParser($configuration, self::RECURSIVE_LEVEL);
         $this->tryChangeExtType();
 
-        return $this->configurationManager->getContentObject()->cObjGet($setup, 'typoscript_code_proc.');
+        return $contentObject->cObjGet($setup, 'typoscript_code_proc.');
     }
 
     /**
@@ -97,6 +87,7 @@ class ContentController extends ActionController
     protected function tryChangeExtType()
     {
         if (isset($this->parser->sections) && is_array($this->parser->sections) && count($this->parser->sections)) {
+            // @extensionScannerIgnoreLine
             $this->configurationManager->getContentObject()->convertToUserIntObject();
         }
     }
@@ -108,7 +99,7 @@ class ContentController extends ActionController
      * @param int $recursiveLevel
      * @return array TypoScript configuration array
      */
-    protected function scriptParser($script = '', $recursiveLevel)
+    protected function scriptParser($script, $recursiveLevel)
     {
         $script = $this->parser->checkIncludeLines($script);
 
