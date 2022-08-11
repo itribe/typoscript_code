@@ -15,10 +15,12 @@ namespace Itribe\TyposcriptCode\Controller;
  * The TYPO3 project - inspiring people to share!
  */
 
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser;
 use TYPO3\CMS\Frontend\Configuration\TypoScript\ConditionMatching\ConditionMatcher;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * TyposcriptCode Content Controller
@@ -49,9 +51,9 @@ class ContentController extends ActionController
     /**
      * Render content
      *
-     * @return string
+     * @return ResponseInterface
      */
-    public function indexAction()
+    public function indexAction(): ResponseInterface
     {
         // @extensionScannerIgnoreLine
         $contentObject = $this->configurationManager->getContentObject();
@@ -61,10 +63,12 @@ class ContentController extends ActionController
         $this->parser = GeneralUtility::makeInstance(TypoScriptParser::class);
         $this->matchCondition = GeneralUtility::makeInstance(ConditionMatcher::class);
 
-        $setup = $this->scriptParser($configuration, self::RECURSIVE_LEVEL);
-        $this->tryChangeExtType();
+        $setup = $this->scriptParser($configuration);
+        if (isset($this->parser->sections) && is_array($this->parser->sections) && count($this->parser->sections)) {
+            $contentObject->convertToUserIntObject();
+        }
 
-        return $contentObject->cObjGet($setup, 'typoscript_code_proc.');
+        return $this->htmlResponse($contentObject->cObjGet($setup, 'typoscript_code_proc.'));
     }
 
     /**
@@ -74,22 +78,10 @@ class ContentController extends ActionController
      * @return string Replacement
      * @see \TYPO3\CMS\Core\TypoScript\ExtendedTemplateService::substituteConstants()
      */
-    protected function substituteConstantsCallBack($matches)
+    protected function substituteConstantsCallBack($matches): string
     {
         $s = $this->parser->getVal($matches[1], $this->parser->setup);
-        return isset($s[0]) ? $s[0] : $matches[0];
-    }
-
-    /**
-     * Change ext type to USER_INT if necessary
-     * @return void
-     */
-    protected function tryChangeExtType()
-    {
-        if (isset($this->parser->sections) && is_array($this->parser->sections) && count($this->parser->sections)) {
-            // @extensionScannerIgnoreLine
-            $this->configurationManager->getContentObject()->convertToUserIntObject();
-        }
+        return $s[0] ?? $matches[0];
     }
 
     /**
@@ -99,7 +91,7 @@ class ContentController extends ActionController
      * @param int $recursiveLevel
      * @return array TypoScript configuration array
      */
-    protected function scriptParser($script, $recursiveLevel)
+    protected function scriptParser(string $script, int $recursiveLevel = self::RECURSIVE_LEVEL): array
     {
         $script = $this->parser->checkIncludeLines($script);
 
@@ -118,7 +110,7 @@ class ContentController extends ActionController
         }
 
         foreach ($this->getTypoScriptFrontendController()->tmpl->setup as $tsObjectKey => $tsObjectValue) {
-            if ($tsObjectKey !== intval($tsObjectKey, 10)) {
+            if ($tsObjectKey !== (integer)$tsObjectKey) {
                 $this->parser->setup[$tsObjectKey] = $tsObjectValue;
             }
         }
@@ -128,9 +120,9 @@ class ContentController extends ActionController
     }
 
     /**
-     * @return \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController
+     * @return TypoScriptFrontendController
      */
-    protected function getTypoScriptFrontendController()
+    protected function getTypoScriptFrontendController(): TypoScriptFrontendController
     {
         return $GLOBALS['TSFE'];
     }

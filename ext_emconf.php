@@ -10,16 +10,18 @@ $EM_CONF[$_EXTKEY] = [
     'title' => 'TypoScript code',
     'description' => 'This extension allows you to insert any TypoScript code to a page as a normal content element.',
     'category' => 'plugin',
-    'version' => '6.2.0',
+    'version' => '6.3.0',
     'state' => 'stable',
     'author' => 'Alexey Gafiulov, Anton Danilov',
     'author_email' => 'alexey.gafiulov@i-tribe.de, anton.danilov@i-tribe.de',
     'author_company' => 'interactive tribe GmbH',
     'constraints' => [
         'depends' => [
-            'typo3' => '10.3.0-10.9.99',
+            'typo3' => '11.5.0-11.5.99',
         ],
         'conflicts' => [],
-        'suggests' => ['t3editor' => '']
+        'suggests' => [
+            't3editor' => '',
+        ]
     ],
 ];
