@@ -1,18 +1,26 @@
 <?php
-defined('TYPO3_MODE') or die();
+defined('TYPO3') or die();
 
-// @extensionScannerIgnoreLine
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'TyposcriptCode',
-    'Content',
-    [
-        \Itribe\TyposcriptCode\Controller\ContentController::class => 'index',
-    ],
-    [],
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
-);
+use \Itribe\TyposcriptCode\Controller\ContentController;
+use \TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use \TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
-// Apply PageTSconfig
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
-    '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:typoscript_code/Configuration/PageTS/modWizards.tsconfig">'
-);
+(static function () {
+
+    ExtensionUtility::configurePlugin(
+        'TyposcriptCode',
+        'Content',
+        [
+            ContentController::class => 'index',
+        ],
+        [],
+        ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+    );
+
+    // Apply PageTSconfig
+    ExtensionManagementUtility::addPageTSConfig(
+        '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:typoscript_code/Configuration/PageTS/modWizards.tsconfig">'
+    );
+})();
+
+
