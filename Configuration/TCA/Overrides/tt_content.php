@@ -23,16 +23,20 @@ call_user_func(function () {
     // Add type icon class
     $GLOBALS['TCA']['tt_content']['ctrl']['typeicon_classes']['typoscriptcode_content'] = 'extensions-typoscript_code-content';
     // Activate t3editor for tt_content type typoscriptcode_content if this type exists and t3editor is loaded
-    if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('t3editor') &&
-        is_array($GLOBALS['TCA']['tt_content']['types']['typoscriptcode_content'])
+    if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('t3editor')
+        && isset($GLOBALS['TCA']['tt_content']['types']['typoscriptcode_content'])
+        && is_array($GLOBALS['TCA']['tt_content']['types']['typoscriptcode_content'])
     ) {
-        if (!is_array($GLOBALS['TCA']['tt_content']['types']['typoscriptcode_content']['columnsOverrides'])) {
+        if (!isset($GLOBALS['TCA']['tt_content']['types']['typoscriptcode_content']['columnsOverrides'])
+            || !is_array($GLOBALS['TCA']['tt_content']['types']['typoscriptcode_content']['columnsOverrides'])) {
             $GLOBALS['TCA']['tt_content']['types']['typoscriptcode_content']['columnsOverrides'] = [];
         }
-        if (!is_array($GLOBALS['TCA']['tt_content']['types']['typoscriptcode_content']['columnsOverrides']['bodytext'])) {
+        if (!isset($GLOBALS['TCA']['tt_content']['types']['typoscriptcode_content']['columnsOverrides']['bodytext'])
+            || !is_array($GLOBALS['TCA']['tt_content']['types']['typoscriptcode_content']['columnsOverrides']['bodytext'])) {
             $GLOBALS['TCA']['tt_content']['types']['typoscriptcode_content']['columnsOverrides']['bodytext'] = [];
         }
-        if (!is_array($GLOBALS['TCA']['tt_content']['types']['typoscriptcode_content']['columnsOverrides']['bodytext']['config'])) {
+        if (!isset($GLOBALS['TCA']['tt_content']['types']['typoscriptcode_content']['columnsOverrides']['bodytext']['config'])
+            || !is_array($GLOBALS['TCA']['tt_content']['types']['typoscriptcode_content']['columnsOverrides']['bodytext']['config'])) {
             $GLOBALS['TCA']['tt_content']['types']['typoscriptcode_content']['columnsOverrides']['bodytext']['config'] = [];
         }
         $GLOBALS['TCA']['tt_content']['types']['typoscriptcode_content']['columnsOverrides']['bodytext']['config']['renderType'] = 't3editor';
