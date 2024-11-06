@@ -1,5 +1,4 @@
 <?php
-defined('TYPO3') or die();
 
 use \Itribe\TyposcriptCode\Controller\ContentController;
 use \TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
