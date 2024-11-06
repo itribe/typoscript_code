@@ -1,5 +1,11 @@
 <?php
 
+defined('TYPO3') or die();
+
+use TYPO3\CMS\Core\Utility\ArrayUtility;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
+
 call_user_func(function () {
     $typesConfig = [
         'showitem' => '
@@ -24,7 +30,7 @@ call_user_func(function () {
     ];
 
     // Activate t3editor for tt_content type typoscriptcode_content if this type exists and t3editor is loaded
-    if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('t3editor')
+    if (ExtensionManagementUtility::isLoaded('t3editor')
     ) {
         $typesConfig['columnsOverrides'] = [
             'bodytext' => [
@@ -38,22 +44,21 @@ call_user_func(function () {
         ];
     }
     // Register the plugin
-    // @extensionScannerIgnoreLine
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+    $plugin = ExtensionUtility::registerPlugin(
         'TyposcriptCode',
         'Content',
         'LLL:EXT:typoscript_code/Resources/Private/Language/locallang.xlf:plugins.title',
         'extensions-typoscript_code-content'
     );
-    \TYPO3\CMS\Core\Utility\ArrayUtility::mergeRecursiveWithOverrule($GLOBALS['TCA']['tt_content'], [
+    ArrayUtility::mergeRecursiveWithOverrule($GLOBALS['TCA']['tt_content'], [
         'ctrl' => [
             // Add type icon class
             'typeicon_classes' => [
-                'typoscriptcode_content' => 'extensions-typoscript_code-content',
+                $plugin => 'extensions-typoscript_code-content',
             ],
         ],
         'types' => [
-            'typoscriptcode_content' => $typesConfig,
+            $plugin => $typesConfig,
         ],
     ]);
 });
