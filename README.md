@@ -1,6 +1,6 @@
-[![Latest Stable Version](http://poser.pugx.org/itribe/typoscript-code/v)](https://packagist.org/packages/itribe/typoscript-code)
-[![Total Downloads](http://poser.pugx.org/itribe/typoscript-code/downloads)](https://packagist.org/packages/itribe/typoscript-code)
-[![License](http://poser.pugx.org/itribe/typoscript-code/license)](https://packagist.org/packages/itribe/typoscript-code)
+[![Latest Stable Version](https://poser.pugx.org/itribe/typoscript-code/v)](https://packagist.org/packages/itribe/typoscript-code)
+[![Total Downloads](https://poser.pugx.org/itribe/typoscript-code/downloads)](https://packagist.org/packages/itribe/typoscript-code)
+[![License](https://poser.pugx.org/itribe/typoscript-code/license)](https://packagist.org/packages/itribe/typoscript-code)
 
 # TypoScript code
 
@@ -20,13 +20,14 @@ Press the "Retrieve/Update" button and search for the extension key "typoscript_
 
 ## Version status
 
-| Version           | TYPO3                                                        |
-|-------------------|--------------------------------------------------------------|
-| Version **5.x**   | Compatible with TYPO3 6.2.x - 7.6.x                          |
-| Version **6.0.x** | Compatible with TYPO3 8.7.x                                  |
-| Version **6.1.x** | Compatible with TYPO3 8.7.x - 9.5.x                          |
-| Version **6.2.x** | Compatible with [TYPO3 10](https://get.typo3.org/version/10) |
-| Version **6.3.x** | Compatible with [TYPO3 11](https://get.typo3.org/version/11) |
+| Version           | TYPO3                                                                                                       |
+|-------------------|-------------------------------------------------------------------------------------------------------------|
+| Version **5.x**   | Compatible with TYPO3 6.2.x - 7.6.x                                                                         |
+| Version **6.0.x** | Compatible with TYPO3 8.7.x                                                                                 |
+| Version **6.1.x** | Compatible with TYPO3 8.7.x - 9.5.x                                                                         |
+| Version **6.2.x** | Compatible with [TYPO3 10](https://get.typo3.org/version/10)                                                |
+| Version **6.3.x** | Compatible with [TYPO3 11](https://get.typo3.org/version/11)                                                |
+| Version **7.0.x** | Compatible with [TYPO3 12](https://get.typo3.org/version/12) & [TYPO3 13](https://get.typo3.org/version/13) |
 
 ## Users manual
 
