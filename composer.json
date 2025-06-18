@@ -20,7 +20,9 @@
         }
     },
     "require": {
-        "typo3/cms-core": "^12.4||^13.4"
+        "typo3/cms-core": "^12.4||^13.4",
+        "typo3/cms-extbase": "^12.4||^13.4",
+        "typo3/cms-frontend": "^12.4||^13.4"
     },
     "extra": {
         "typo3/cms": {
