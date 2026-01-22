@@ -16,9 +16,12 @@ namespace Itribe\TyposcriptCode\TypoScript;
  */
 
 use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Core\Site\Entity\SiteInterface;
 use TYPO3\CMS\Core\TypoScript\AST\Node\RootNode;
 use TYPO3\CMS\Core\TypoScript\IncludeTree\IncludeNode\RootInclude;
 use TYPO3\CMS\Core\TypoScript\IncludeTree\IncludeNode\SegmentInclude;
+use TYPO3\CMS\Core\TypoScript\IncludeTree\SysTemplateRepository;
+use TYPO3\CMS\Core\TypoScript\IncludeTree\SysTemplateTreeBuilder;
 use TYPO3\CMS\Core\TypoScript\IncludeTree\Traverser\ConditionVerdictAwareIncludeTreeTraverser;
 use TYPO3\CMS\Core\TypoScript\IncludeTree\TreeFromLineStreamBuilder;
 use TYPO3\CMS\Core\TypoScript\IncludeTree\Visitor\IncludeTreeAstBuilderVisitor;
@@ -26,6 +29,7 @@ use TYPO3\CMS\Core\TypoScript\IncludeTree\Visitor\IncludeTreeConditionMatcherVis
 use TYPO3\CMS\Core\TypoScript\IncludeTree\Visitor\IncludeTreeSetupConditionConstantSubstitutionVisitor;
 use TYPO3\CMS\Core\TypoScript\Tokenizer\LossyTokenizer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\RootlineUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 final class TypoScriptContentFactory
@@ -34,7 +38,9 @@ final class TypoScriptContentFactory
      * __construct
      */
     public function __construct(
-        private readonly TreeFromLineStreamBuilder $treeFromTokenStreamBuilder
+        private readonly TreeFromLineStreamBuilder $treeFromTokenStreamBuilder,
+        private readonly SysTemplateRepository $sysTemplateRepository,
+        private readonly SysTemplateTreeBuilder $treeBuilder,
     ) {}
     
     public function createSettingsAndSetupConditions(ServerRequestInterface $request, ContentObjectRenderer $contentObject): RootNode
@@ -67,7 +73,22 @@ final class TypoScriptContentFactory
         if (!empty($setupMatcherVisitor->getConditionListWithVerdicts())) {
             $contentObject->convertToUserIntObject();
         }
+        $setupIncludeTree = $this->getSetupIncludeTree((int)$data['pid'], $request, $tokenizer);
+        $setupIncludeTree->addChild($rootNode);
+        $includeTreeTraverserConditionVerdictAware->traverse($setupIncludeTree, $includeTreeTraverserConditionVerdictAwareVisitors);
         return $setupAstBuilderVisitor->getAst();
+    }
+
+    /**
+     * Returns the setup include tree for the given page.
+     */
+    private function getSetupIncludeTree(int $pageId, ServerRequestInterface $request, LossyTokenizer $tokenizer): RootInclude
+    {
+        $rootLine = GeneralUtility::makeInstance(RootlineUtility::class, $pageId)->get();
+        $sysTemplateRows = $this->sysTemplateRepository->getSysTemplateRowsByRootline($rootLine, $request);
+        /** @var SiteInterface|null $site */
+        $site = $request->getAttribute('site');
+        return $this->treeBuilder->getTreeBySysTemplateRowsAndSite('setup', $sysTemplateRows, $tokenizer, $site);
     }
 
     /**

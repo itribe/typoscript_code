@@ -2,8 +2,10 @@
 
 defined('TYPO3') or die();
 
+use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
 call_user_func(function () {
@@ -26,22 +28,23 @@ call_user_func(function () {
             rowDescription,
         --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:extended,
     ',
-        'columnsOverrides' => []
-    ];
-
-    // Activate t3editor for tt_content type typoscriptcode_content if this type exists and t3editor is loaded
-    if (ExtensionManagementUtility::isLoaded('t3editor')
-    ) {
-        $typesConfig['columnsOverrides'] = [
+        'columnsOverrides' => [
             'bodytext' => [
                 'label' => 'LLL:EXT:typoscript_code/Resources/Private/Language/locallang.xlf:bodytext',
                 'config' => [
-                    'renderType' => 't3editor',
                     'wrap' => 'off',
                     'format' => 'typoscript',
                 ],
             ],
-        ];
+        ],
+    ];
+    $versionInformation = GeneralUtility::makeInstance(Typo3Version::class);
+    // Activate t3editor for tt_content type typoscriptcode_content if this type exists and t3editor is loaded
+    if (ExtensionManagementUtility::isLoaded('t3editor')
+    ) {
+        $typesConfig['columnsOverrides']['bodytext']['config']['renderType'] = 't3editor';
+    } else if ($versionInformation->getMajorVersion() >= 13) {
+        $typesConfig['columnsOverrides']['bodytext']['config']['renderType'] = 'codeEditor';
     }
     // Register the plugin
     $plugin = ExtensionUtility::registerPlugin(

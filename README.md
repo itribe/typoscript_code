@@ -20,14 +20,15 @@ Press the "Retrieve/Update" button and search for the extension key "typoscript_
 
 ## Version status
 
-| Version           | TYPO3                                                                                                       |
-|-------------------|-------------------------------------------------------------------------------------------------------------|
-| Version **5.x**   | Compatible with TYPO3 6.2.x - 7.6.x                                                                         |
-| Version **6.0.x** | Compatible with TYPO3 8.7.x                                                                                 |
-| Version **6.1.x** | Compatible with TYPO3 8.7.x - 9.5.x                                                                         |
-| Version **6.2.x** | Compatible with [TYPO3 10](https://get.typo3.org/version/10)                                                |
-| Version **6.3.x** | Compatible with [TYPO3 11](https://get.typo3.org/version/11)                                                |
-| Version **7.0.x** | Compatible with [TYPO3 12](https://get.typo3.org/version/12) & [TYPO3 13](https://get.typo3.org/version/13) |
+| Version           | TYPO3                                                                                                                                                     |
+|-------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Version **5.x**   | Compatible with TYPO3 6.2.x - 7.6.x                                                                                                                       |
+| Version **6.0.x** | Compatible with TYPO3 8.7.x                                                                                                                               |
+| Version **6.1.x** | Compatible with TYPO3 8.7.x - 9.5.x                                                                                                                       |
+| Version **6.2.x** | Compatible with [TYPO3 10](https://get.typo3.org/version/10)                                                                                              |
+| Version **6.3.x** | Compatible with [TYPO3 11](https://get.typo3.org/version/11)                                                                                              |
+| Version **7.0.x** | Compatible with [TYPO3 12](https://get.typo3.org/version/12) & [TYPO3 13](https://get.typo3.org/version/13)                                               |
+| Version **7.2.x** | Compatible with [TYPO3 12](https://get.typo3.org/version/12), [TYPO3 13](https://get.typo3.org/version/13) & [TYPO3 14](https://get.typo3.org/version/14) |
 
 ## Users manual
 
