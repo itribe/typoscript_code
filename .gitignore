@@ -2,3 +2,10 @@
 .idea
 .vscode
 .ddev/
+/.Build
+.cache
+/var/
+/composer.lock
+/composer.json.orig
+/composer.json.testing
+/Tests/Build/.phpunit.result.cache

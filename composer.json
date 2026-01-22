@@ -19,6 +19,11 @@
             "Itribe\\TyposcriptCode\\": "Classes/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Itribe\\TyposcriptCode\\Tests\\": "Tests/"
+        }
+    },
     "require": {
         "typo3/cms-core": "^12.4||^13.4||^14.0",
         "typo3/cms-extbase": "^12.4||^13.4||^14.0",
@@ -26,10 +31,24 @@
     },
     "extra": {
         "typo3/cms": {
+            "web-dir": ".Build/Web",
             "extension-key": "typoscript_code"
         }
     },
     "replace": {
         "typo3-ter/typoscript-code": "self.version"
+    },
+    "config": {
+        "sort-packages": true,
+        "vendor-dir": ".Build/vendor",
+        "bin-dir": ".Build/bin",
+        "allow-plugins": {
+            "typo3/class-alias-loader": true,
+            "typo3/cms-composer-installers": true
+        }
+    },
+    "require-dev": {
+        "sbuerk/typo3-site-based-test-trait": "^1.0||^2.0||^3.0",
+        "typo3/testing-framework": "^8.0"
     }
 }

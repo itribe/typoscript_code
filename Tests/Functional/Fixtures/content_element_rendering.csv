@@ -1,0 +1,68 @@
+"pages"
+,"uid","pid","title","slug","doktype","is_siteroot"
+,1,0,"Test Page","/test-page",1,1
+
+"sys_template"
+,"uid","pid","title","root","clear","config"
+,1,1,"Main Template",1,1,"lib.test = TEXT
+lib.test.value = TEST Lib value
+page = PAGE
+page.10 = CONTENT
+page.10.table = tt_content
+page.10.select.orderBy = sorting
+page.10.select.where = colPos=0
+
+tt_content.typoscriptcode_content = USER
+tt_content.typoscriptcode_content.userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+tt_content.typoscriptcode_content.extensionName = TyposcriptCode
+tt_content.typoscriptcode_content.pluginName = Content"
+
+"tt_content"
+,"uid","pid","CType","header","bodytext","colPos","sys_language_uid","sorting"
+,1,1,"typoscriptcode_content","Simple TEXT","10 = TEXT
+10.value = Hello from TypoScript!
+
+15 = TEXT
+15.data = date:U
+15.wrap = <span class=""cached-timestamp"">Cached:|</span>",0,0,100
+,2,1,"typoscriptcode_content","Lib Reference","20 = < lib.test",0,0,200
+,3,1,"typoscriptcode_content","With Condition","[page[""uid""] == 1]
+30 = TEXT
+30.value = Condition matched for page 1
+[END]
+
+[page[""uid""] == 999]
+30 = TEXT
+30.value = This should not appear
+[END]",0,0,300
+,4,1,"typoscriptcode_content","COA_INT Usage","40 = COA_INT
+40 {
+  10 = TEXT
+  10.value = Uncached content
+  10.wrap = <div class=""uncached"">|</div>
+
+  20 = TEXT
+  20.data = date:U
+  20.wrap = <p>Timestamp: |</p>
+}",0,0,400
+,5,1,"typoscriptcode_content","Complex COA","50 = COA
+50 {
+  10 = TEXT
+  10.value = Header
+  10.wrap = <h2>|</h2>
+
+  20 = TEXT
+  20.data = page:title
+  20.wrap = <p>Page title: |</p>
+
+  30 = TEXT
+  30.value = Footer
+  30.wrap = <footer>|</footer>
+}",0,0,500
+,6,1,"typoscriptcode_content","Data Processing","60 = TEXT
+60.data = page:uid
+60.wrap = <div class=""page-uid"">Page UID: |</div>
+
+70 = TEXT
+70.data = TSFE:id
+70.wrap = <div class=""tsfe-id"">TSFE ID: |</div>",0,0,600
